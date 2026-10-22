@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COURSEFLOW | Course Registration</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark">CF</div>
+    <div>
+      <h1>COURSEFLOW</h1>
+      <p>College Course Registration &amp; Waitlist Management</p>
+    </div>
+    <span class="header-tag">STUDENT PORTAL</span>
+  </header>
+
+  <main class="container">
+    <section class="welcome">
+      <div>
+        <p class="eyebrow">ACADEMIC MANAGEMENT</p>
+        <h2>Registration dashboard</h2>
+        <p class="muted">Manage courses, student enrollment, and FIFO waitlists in one place.</p>
+      </div>
+      <button class="primary" id="showAddCourseBtn">+ Add course</button>
+    </section>
+
+    <section class="stats-grid" aria-label="Summary">
+      <article class="stat-card"><span>Total courses</span><strong id="totalCourses">0</strong></article>
+      <article class="stat-card"><span>Enrolled students</span><strong id="totalEnrolled">0</strong></article>
+      <article class="stat-card"><span>Available seats</span><strong id="totalSeats">0</strong></article>
+      <article class="stat-card"><span>Students waiting</span><strong id="totalWaiting">0</strong></article>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h3>Available courses</h3>
+          <p class="muted">Choose a course to register or inspect its roster.</p>
+        </div>
+        <input id="courseFilter" class="search-input" type="search" placeholder="Search courses..." aria-label="Search courses">
+      </div>
+      <div id="courseGrid" class="course-grid"></div>
+    </section>
+
+    <div class="content-grid">
+      <section class="panel">
+        <div class="section-heading">
+          <div>
+            <h3>Student registration</h3>
+            <p class="muted">Register a student or add them to a course waitlist.</p>
+          </div>
+        </div>
+        <form id="registerForm" class="form-grid">
+          <label>Course
+            <select id="registerCourse" required></select>
+          </label>
+          <label>Student ID
+            <input id="studentId" type="text" maxlength="30" placeholder="e.g. STU001" required>
+          </label>
+          <label class="full-width">Student name
+            <input id="studentName" type="text" maxlength="80" placeholder="Enter full name" required>
+          </label>
+          <button class="primary full-width" type="submit">Register student</button>
+        </form>
+        <div id="registrationMessage" class="message" role="status" aria-live="polite"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-heading">
+          <div>
+            <h3>Find a student</h3>
+            <p class="muted">Search across all courses by student ID.</p>
+          </div>
+        </div>
+        <form id="searchForm" class="inline-form">
+          <input id="searchId" type="text" placeholder="Enter student ID" aria-label="Student ID to search" required>
+          <button class="secondary" type="submit">Search</button>
+        </form>
+        <div id="searchResults" class="results-box">
+          <p class="muted">Search results will appear here.</p>
+        </div>
+        <form id="updateForm" class="update-form hidden">
+          <label>New student name
+            <input id="updatedName" type="text" maxlength="80" required>
+          </label>
+          <button class="secondary" type="submit">Update name</button>
+        </form>
+      </section>
+    </div>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h3>Course roster &amp; waitlist</h3>
+          <p class="muted">Withdraw a student or review enrollment status.</p>
+        </div>
+        <label class="compact-label">Select course
+          <select id="rosterCourse"></select>
+        </label>
+      </div>
+      <div id="rosterContent"></div>
+    </section>
+
+    <section id="addCoursePanel" class="panel hidden">
+      <div class="section-heading">
+        <div>
+          <h3>Add a course</h3>
+          <p class="muted">Create a course with a unique ID and seat capacity.</p>
+        </div>
+        <button class="icon-button" id="hideAddCourseBtn" type="button" aria-label="Close add course form">✕</button>
+      </div>
+      <form id="addCourseForm" class="form-grid">
+        <label>Course ID
+          <input id="newCourseId" type="text" maxlength="20" placeholder="e.g. CS104" required>
+        </label>
+        <label>Course name
+          <input id="newCourseName" type="text" maxlength="80" placeholder="e.g. Web Development" required>
+        </label>
+        <label>Seat capacity
+          <input id="newCourseCapacity" type="number" min="1" max="10000" placeholder="e.g. 30" required>
+        </label>
+        <button class="primary" type="submit">Save course</button>
+      </form>
+      <div id="courseMessage" class="message" role="status" aria-live="polite"></div>
+    </section>
+
+    <footer>
+      <span>COURSEFLOW · Data Structures demonstration</span>
+      <button id="resetDemoBtn" class="text-button" type="button">Reset demo data</button>
+    </footer>
+  </main>
+
+  <dialog id="confirmDialog">
+    <form method="dialog">
+      <h3>Reset demo data?</h3>
+      <p>This removes saved changes from this browser and restores the sample courses.</p>
+      <div class="dialog-actions">
+        <button class="secondary" value="cancel">Cancel</button>
+        <button class="danger" id="confirmResetBtn" value="confirm">Reset data</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>
